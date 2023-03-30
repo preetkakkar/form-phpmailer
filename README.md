@@ -8,7 +8,7 @@ HTML form validation can be done by JavaScript. If a form field is empty, this f
 
 Form also display an example of dropdown to select a state. Also able to choose different email addresses as per location to send email.
 
-# Form with PHPMailer
+# Send form using PHPMailer
 
 Using PHPMailer to send the email. Using multiple forms in one php.
 
