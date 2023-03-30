@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+<script  type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://www.amigroup.co/js/lib/$/$-1.10.2.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+	
+<div class="container">
+
+		<div id="frm_contact_us">
+			<h2>Support Enquiry Form </h2><br>
+			<div id="mail-status" class="success-msg"></div>
+	
+			<label for="fname">Name</label>
+			<input type="text" id="fname" name="fname" class="input_box">
+			<div class="info1" id="fname-info"></div>
+
+			<label for="company">Company</label>
+			<input type="text" id="company" name="company" class="input_box">
+			<div id="company-info" class="info1"></div>
+
+			<label for="email">Email Address</label>
+			<input type="text" id="email" name="email" class="input_box">
+			<div id="email-info" class="info1"></div>
+
+			<label for="phone_number">Phone Number</label>
+			<input type="text" id="phone_number" name="phone_number" class="input_box">
+			<div id="phone_number-info" class="info1"></div>
+		
+			<label for="message">Message</label>
+			<textarea id="message" name="message" class="input_box" cols="60" rows="4"></textarea>
+			<div id="message-info" class="info1"></div>
+			
+
+			<br>
+
+			<br><br><br>
+
+			<div style="width: 100%; overflow: hidden; float: right; display: block;">
+
+			<input type="submit" value="Submit" onClick="sendContactForm();">
+
+			</div>
+		</div> <!-- end of <div id="frm_contact_us"> -->
+</div>
+
+
+
+
+<script type="text/javascript">
+    /* require(["jquery"],function($) {*/
+        $(document).ready(function($) {
+        	sendContactForm = function() {
+		
+
+		valid = validateContactForm();
+
+		if(valid) {
+
+		$.ajax({
+
+		// url: "http://www.mage2.com.au/ajax-contactform.php?action=process",
+		url: "<?php echo str_replace('index.php/ajax-enquiryform.php?action=support' ?>",
+		
+		data:'userName='+$("#fname").val()+'&userEmail='+$("#email").val()+'&company='+$("#company").val()+'&message='+$("#message").val()+'&phone_number='+$("#phone_number").val(),
+
+		type: "POST",
+
+		success:function(data){
+		$("#mail-status").css("display","block");
+		$("#mail-status").html(data);
+		$("#fname").val('');
+		$("#email").val('');
+		$("#company").val('');
+		$("#message").val('');
+		$("#phone_number").val('');
+
+
+		},
+
+		error:function (){}
+		});
+
+	}
+	
+	}
+
+
+
+	validateContactForm = function() {
+	var valid = true;	
+	//$(".demoInputBox").css('background-color','');
+	$(".info1").html('');
+	$(".info1").hide();
+	$(".input_box").css('border','');
+
+	/*$(".g-recaptcha").find("div:first").css('border','');*/
+
+
+
+	if(!$("#fname").val()) {
+		$("#fname-info").show();
+		$("#fname-info").html("(Name is required)");
+		$("#fname").css('border','1px solid #df280a');
+		valid = false;
+
+	}
+
+	if(!$("#company").val()) {
+		$("#company-info").show();
+		$("#company-info").html("(Company/Organization name is required)");
+		$("#company").css('border','1px solid #df280a');
+		valid = false;
+	}
+
+
+		
+	if(!$("#email").val()) {
+		$("#email-info").show();
+		$("#email-info").html("(Email address is required)");
+		$("#email").css('border','1px solid #df280a');
+		valid = false;
+	}
+
+	if(!$("#email").val().match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/)) {
+		$("#email-info").show();
+		$("#email-info").html("(Please enter valid Email Address.)");
+		$("#email").css('border','1px solid #df280a');
+		valid = false;
+	}
+
+	if(!$("#phone_number").val()) {
+		$("#phone_number-info").show();
+		$("#phone_number-info").html("(Phone number is required)");
+		$("#phone_number").css('border','1px solid #df280a');
+		valid = false;
+
+	}
+		
+
+
+	if(!$("#message").val()) {
+		$("#message-info").show();
+		$("#message-info").html("(Message is required)");
+		$("#message").css('border','1px solid #df280a');
+		valid = false;
+	}
+
+
+
+
+	return valid;
+
+}
+
+
+});
+/*});*/
+</script>
+	
+	
+</body>
+</html>
